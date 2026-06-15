@@ -2,6 +2,7 @@ import json
 import csv
 import io
 import math
+import os
 import sys
 from datetime import date
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
@@ -456,12 +457,14 @@ def math_sin(month):
 
 
 if __name__ == "__main__":
-    port = int(sys.argv[1]) if len(sys.argv) > 1 else 8080
+    port = int(os.environ.get("PORT") or (sys.argv[1] if len(sys.argv) > 1 else 8080))
+    host = os.environ.get("HOST", "0.0.0.0")
     try:
-        server = ExclusiveThreadingHTTPServer(("localhost", port), Handler)
+        server = ExclusiveThreadingHTTPServer((host, port), Handler)
     except OSError:
         print(f"Port {port} is already in use by another server.")
         print("Stop the old server or run: python server.py 8765")
         raise SystemExit(1)
-    print(f"Crop price app running at http://localhost:{port}/")
+    local_url = f"http://localhost:{port}/"
+    print(f"Crop price app running at {local_url}")
     server.serve_forever()

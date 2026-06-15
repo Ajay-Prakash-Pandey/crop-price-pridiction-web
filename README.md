@@ -38,6 +38,27 @@ python server.py 8765
 
 Then open `http://localhost:8765/`. The page checks API version 2 before loading prices or exports.
 
+## Free Hosting
+
+Recommended free host: Render Web Service.
+
+This project includes `render.yaml`, so Render can detect the Python service automatically.
+
+1. Push this folder to a GitHub repository.
+2. Open Render and choose **New +** > **Blueprint**.
+3. Connect your GitHub repository.
+4. Select the repository and apply the blueprint.
+5. After the deploy finishes, open the public `.onrender.com` URL.
+
+Manual Render settings, if you do not use the blueprint:
+
+- Runtime: Python
+- Build command: `pip install -r requirements.txt`
+- Start command: `python server.py`
+- Plan: Free
+
+The server reads Render's `PORT` environment variable automatically. For local development it still uses port `8080` by default.
+
 ## Files
 
 - `index.html` contains the app layout.
