@@ -268,11 +268,11 @@ def build_deck():
     # 10. Demo
     slide = base_slide(prs, "Practical Demonstration", 10)
     add_rect(slide, 0.7, 1.2, 5.15, 4.95, NAVY)
-    add_text(slide, 1.0, 1.55, 4.55, 0.45, "Run the application", 22, GOLD, True,
+    add_text(slide, 1.0, 1.55, 4.55, 0.45, "Hosted demo and local run", 20, GOLD, True,
              PP_ALIGN.CENTER)
-    add_text(slide, 1.05, 2.25, 4.45, 0.75, "python server.py 8100",
-             20, WHITE, True, PP_ALIGN.CENTER, font="Consolas")
-    add_text(slide, 1.05, 3.05, 4.45, 0.75, "http://localhost:8100/",
+    add_text(slide, 1.05, 2.25, 4.45, 0.75, "GitHub Pages public URL",
+             18, WHITE, True, PP_ALIGN.CENTER, font="Consolas")
+    add_text(slide, 1.05, 3.05, 4.45, 0.75, "python server.py",
              18, LIGHT_GREEN, True, PP_ALIGN.CENTER, font="Consolas")
     add_text(slide, 1.15, 4.2, 4.25, 1.15,
              "Use Wheat or Rice - Basmati\nIndia • INR • 6 or 12 months",
@@ -287,8 +287,25 @@ def build_deck():
         "Keep screenshots ready if internet access fails.",
     ], 17)
 
-    # 11. Limitations
-    slide = base_slide(prs, "Limitations and Future Scope", 11)
+    # 11. Deployment
+    slide = base_slide(prs, "Deployment and Hosting", 11)
+    add_card(slide, 0.7, 1.25, 5.8, 2.25, "Public Hosting",
+             "Hosted on GitHub Pages because it is free, always available for static websites, and does not require a credit card.\n\n"
+             "Live URL:\najay-prakash-pandey.github.io/crop-price-pridiction-web/",
+             GREEN)
+    add_card(slide, 6.85, 1.25, 5.8, 2.25, "Static Demo Mode",
+             "GitHub Pages cannot run Python, so the browser uses saved crop and region assumptions for forecasts, history charts, and export.\n\n"
+             "This keeps the project demo accessible 24/7.",
+             RGBColor(39, 105, 156))
+    add_card(slide, 0.7, 4.0, 5.8, 2.05, "Full Backend Mode",
+             "When server.py is running locally or on a Python host, the same frontend uses API endpoints for live signals, benchmark history, and backend exports.",
+             RGBColor(141, 91, 166))
+    add_card(slide, 6.85, 4.0, 5.8, 2.05, "Deployment Learning",
+             "The project demonstrates two practical deployment choices: a free public static demo and a Python backend version for live data.",
+             RGBColor(203, 126, 36))
+
+    # 12. Limitations
+    slide = base_slide(prs, "Limitations and Future Scope", 12)
     add_card(slide, 0.7, 1.25, 5.8, 4.95, "Current Limitations",
              "• Public futures are benchmark prices, not exact mandi prices.\n\n"
              "• Not every crop has an observed public historical series.\n\n"
@@ -303,8 +320,8 @@ def build_deck():
              "• Add login, watchlists, alerts, and maps.\n\n"
              "• Deploy with a database and scheduled model refresh.")
 
-    # 12. Viva
-    slide = base_slide(prs, "Key Viva Answers", 12)
+    # 13. Viva
+    slide = base_slide(prs, "Key Viva Answers", 13)
     questions = [
         ("Project type?", "A regression and time-series forecasting web application."),
         ("Why ridge regression?", "It is fast, interpretable, handles correlated features, and reduces overfitting."),
@@ -319,7 +336,7 @@ def build_deck():
         add_card(slide, x, y, 5.7, 1.35, question, answer,
                  GREEN if i % 2 == 0 else RGBColor(39, 105, 156))
 
-    # 13. Conclusion
+    # 14. Conclusion
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     slide.background.fill.solid()
     slide.background.fill.fore_color.rgb = NAVY

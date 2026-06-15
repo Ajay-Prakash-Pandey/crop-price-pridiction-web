@@ -35,6 +35,14 @@ The dashboard shows today's price, a 10-year historical chart, a 24-month foreca
 
 I used HTML, CSS, and JavaScript for the frontend. I used Python for the API server, data collection, ridge models, validation, forecasting, and export. JSON cache files reduce repeated API calls, while CSV and model files store fallback training data and metadata.
 
+## Deployment
+
+The project is hosted publicly on GitHub Pages at:
+
+https://ajay-prakash-pandey.github.io/crop-price-pridiction-web/
+
+GitHub Pages cannot run Python, so the public website uses a static browser demo mode with saved crop and region assumptions. The same project can still run in full backend mode locally with `python server.py`, where the frontend uses the Python API for live signals, benchmark history, and backend exports.
+
 ## Model and Data
 
 The application supports 22 crops and crop variants across 14 regions. The scenario fallback uses 19 features covering crop properties, region effects, market signals, risks, and seasonality. Its local dataset contains 36,960 generated feature rows, so it is useful for demonstrating the pipeline but is not a substitute for verified market records.
