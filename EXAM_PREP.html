@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CropSmart Exam Preparation Guide</title>
+  <style>
+    :root {
+      --bg: #f6f8f4;
+      --paper: #ffffff;
+      --text: #1f2a24;
+      --muted: #59685f;
+      --primary: #2f7d4f;
+      --primary-dark: #1f5f3a;
+      --border: #dce5dd;
+      --code-bg: #eef4ef;
+      --quote-bg: #f2f7f3;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.65;
+    }
+
+    .page {
+      width: min(1080px, calc(100% - 32px));
+      margin: 32px auto;
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 12px 30px rgba(31, 42, 36, 0.08);
+      overflow: hidden;
+    }
+
+    header {
+      padding: 40px 48px 28px;
+      background: linear-gradient(135deg, #eff8f0 0%, #ffffff 68%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--primary-dark);
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    main {
+      padding: 8px 48px 48px;
+    }
+
+    section {
+      padding-top: 28px;
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--border);
+      color: var(--primary-dark);
+      font-size: 1.55rem;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 24px 0 10px;
+      color: var(--primary);
+      font-size: 1.15rem;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0 0 14px;
+    }
+
+    ul,
+    ol {
+      margin: 0 0 18px 22px;
+      padding: 0;
+    }
+
+    li {
+      margin: 5px 0;
+    }
+
+    strong {
+      color: #17231c;
+    }
+
+    code {
+      padding: 2px 5px;
+      border-radius: 4px;
+      background: var(--code-bg);
+      color: #1e5838;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.95em;
+    }
+
+    pre {
+      margin: 12px 0 18px;
+      padding: 14px 16px;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--code-bg);
+    }
+
+    pre code {
+      padding: 0;
+      background: transparent;
+      color: #1f2a24;
+      font-size: 0.95rem;
+    }
+
+    blockquote {
+      margin: 14px 0 18px;
+      padding: 12px 16px;
+      border-left: 4px solid var(--primary);
+      background: var(--quote-bg);
+      color: #32443a;
+    }
+
+    blockquote p {
+      margin: 0;
+    }
+
+    .qa h3 {
+      margin-top: 22px;
+    }
+
+    .top-link {
+      display: inline-block;
+      margin-top: 8px;
+      color: var(--primary-dark);
+      font-size: 0.92rem;
+      text-decoration: none;
+    }
+
+    .top-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        width: 100%;
+        margin: 0;
+        border: 0;
+        border-radius: 0;
+      }
+
+      header,
+      main {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      header {
+        padding-top: 28px;
+      }
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+      }
+
+      .page {
+        width: 100%;
+        margin: 0;
+        border: 0;
+        box-shadow: none;
+      }
+
+      header,
+      main {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      section {
+        break-inside: avoid;
+      }
+
+      .top-link {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <article class="page" id="top">
+    <header>
+      <h1>CropSmart Exam Preparation Guide</h1>
+      <p class="subtitle">Project overview, technology stack, algorithm explanation, viva answers, and demo steps.</p>
+    </header>
+
+    <main>
+      <section>
+        <h2>1. Project Introduction</h2>
+        <p>My project name is <strong>CropSmart Global Crop Prices</strong>. It is a web-based crop price prediction and market intelligence dashboard.</p>
+        <p>The user selects:</p>
+        <ul>
+          <li>Crop</li>
+          <li>Region or country</li>
+          <li>Currency</li>
+          <li>Forecast period</li>
+        </ul>
+        <p>The system then shows:</p>
+        <ul>
+          <li>Today's crop price or estimated live price</li>
+          <li>Future predicted price</li>
+          <li>10-year historical price chart</li>
+          <li>24-month forecast chart</li>
+          <li>Confidence score</li>
+          <li>Price driver explanation</li>
+          <li>CSV and JSON export</li>
+        </ul>
+        <p>The main purpose is to help farmers, traders, buyers, and students understand how crop prices may change because of climate, demand, inflation, supply shortage, fuel cost, currency weakness, and global risks.</p>
+      </section>
+
+      <section>
+        <h2>2. Technology Stack</h2>
+        <h3>Frontend</h3>
+        <ul>
+          <li><strong>HTML</strong>: Page structure and input form</li>
+          <li><strong>CSS</strong>: Responsive design and dashboard styling</li>
+          <li><strong>JavaScript</strong>: User interaction, API calls, chart rendering, static fallback prediction, export handling</li>
+        </ul>
+        <h3>Backend</h3>
+        <ul>
+          <li><strong>Python</strong>: Main backend language</li>
+          <li><strong>http.server / ThreadingHTTPServer</strong>: Lightweight local web server</li>
+          <li><strong>JSON</strong>: API response format, cache files, trained model storage</li>
+          <li><strong>CSV</strong>: Training data and export format</li>
+        </ul>
+        <h3>Data Sources</h3>
+        <ul>
+          <li><strong>Yahoo Finance</strong>: Futures benchmark prices and 10-year monthly history for supported crops</li>
+          <li><strong>World Bank API</strong>: Inflation and GDP growth</li>
+          <li><strong>Open-Meteo API</strong>: Weather signals</li>
+          <li><strong>GDELT API</strong>: Conflict and risk signals</li>
+        </ul>
+        <h3>Hosting</h3>
+        <ul>
+          <li><strong>GitHub Pages</strong>: Static demo hosting</li>
+          <li><strong>Render</strong>: Python backend hosting option</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>3. Main Files</h2>
+        <ul>
+          <li><code>index.html</code>: Main dashboard UI</li>
+          <li><code>styles.css</code>: Dashboard styling</li>
+          <li><code>app.js</code>: Frontend logic, API calls, chart rendering, static demo fallback</li>
+          <li><code>server.py</code>: Python API server and prediction endpoints</li>
+          <li><code>data_collector.py</code>: Collects live market, weather, economy, and risk signals</li>
+          <li><code>ml_model.py</code>: Machine learning prediction logic</li>
+          <li><code>train_model.py</code>: Builds fallback training data and trains the scenario model</li>
+          <li><code>data/trained_crop_price_model.json</code>: Saved trained model</li>
+          <li><code>data/market_history.json</code>: Cached market history</li>
+          <li><code>data/live_market_data.json</code>: Cached live signal data</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>4. System Flow</h2>
+        <ol>
+          <li>User opens the dashboard.</li>
+          <li>Frontend checks <code>/api/health</code> to confirm backend API version.</li>
+          <li>User selects crop, region, currency, and forecast period.</li>
+          <li>JavaScript sends a request to <code>/api/predict</code>.</li>
+          <li>Python backend builds a market scenario.</li>
+          <li>Backend collects or reads cached live signals.</li>
+          <li>If public historical benchmark data is available, the backend trains a time-series model.</li>
+          <li>If public history is not available, the backend uses the scenario ridge fallback model.</li>
+          <li>Backend returns today's price, forecast, history, confidence, sources, and model details.</li>
+          <li>Frontend renders charts, summary cards, factors, and export buttons.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>5. Algorithm Used</h2>
+        <p>The project uses <strong>Ridge Regression</strong> in two ways.</p>
+        <h3>A. Time-Series Ridge Autoregression</h3>
+        <p>This is used when public benchmark history is available.</p>
+        <p>The model uses previous monthly prices to predict future monthly prices.</p>
+        <p>Features used:</p>
+        <ul>
+          <li>Trend</li>
+          <li>Seasonality using sine and cosine</li>
+          <li>Previous 1-month price lag</li>
+          <li>Previous 3-month price lag</li>
+          <li>Previous 12-month price lag</li>
+        </ul>
+        <p>Steps:</p>
+        <ol>
+          <li>Collect up to 10 years of monthly crop benchmark prices.</li>
+          <li>Clean the price series.</li>
+          <li>Create feature rows from previous prices.</li>
+          <li>Keep the latest 6 to 12 rows as holdout test data.</li>
+          <li>Train Ridge Regression on older rows.</li>
+          <li>Evaluate using MAPE and R2 score.</li>
+          <li>Predict future prices recursively for 24 months.</li>
+        </ol>
+        <p>Simple explanation:</p>
+        <blockquote>
+          <p>The model learns price trend, seasonal behavior, and relation with previous months. Ridge regularization prevents overfitting by penalizing very large weights.</p>
+        </blockquote>
+        <h3>B. Scenario Ridge Fallback Model</h3>
+        <p>This is used when exact public historical data is not available.</p>
+        <p>Features used:</p>
+        <ul>
+          <li>Base crop price</li>
+          <li>Region multiplier</li>
+          <li>Crop volatility</li>
+          <li>Climate risk</li>
+          <li>Base demand</li>
+          <li>Forecast period</li>
+          <li>Inflation</li>
+          <li>Currency weakness</li>
+          <li>Demand growth</li>
+          <li>Fuel cost</li>
+          <li>War risk</li>
+          <li>Supply shortage</li>
+          <li>Climate effect</li>
+          <li>Crop condition effect</li>
+          <li>Economy effect</li>
+          <li>Policy effect</li>
+          <li>Live price ratio</li>
+          <li>Seasonal sine</li>
+          <li>Seasonal cosine</li>
+        </ul>
+        <p>Target:</p>
+        <ul>
+          <li>Log crop price in USD</li>
+        </ul>
+        <p>Why log price?</p>
+        <blockquote>
+          <p>Log price makes price changes more stable and helps the model handle crops with very different price ranges.</p>
+        </blockquote>
+      </section>
+
+      <section>
+        <h2>6. Why Ridge Regression?</h2>
+        <p>Ridge Regression is used because:</p>
+        <ul>
+          <li>It is simple and explainable.</li>
+          <li>It works well with many numeric features.</li>
+          <li>It reduces overfitting using L2 regularization.</li>
+          <li>It is suitable for an academic project where model logic must be clearly explained.</li>
+          <li>It gives stable predictions even when some features are correlated.</li>
+        </ul>
+        <p>Formula:</p>
+        <pre><code>Predicted value = intercept + w1*x1 + w2*x2 + ... + wn*xn</code></pre>
+        <p>Ridge adds a penalty:</p>
+        <pre><code>Loss = Mean Squared Error + lambda * sum(weights^2)</code></pre>
+      </section>
+
+      <section>
+        <h2>7. Model Evaluation</h2>
+        <p>The project uses:</p>
+        <ul>
+          <li><strong>MAPE</strong>: Mean Absolute Percentage Error</li>
+          <li><strong>R2 Score</strong>: Explains how well predictions follow actual values</li>
+          <li><strong>Chronological holdout</strong>: The latest months are kept for testing</li>
+        </ul>
+        <p>Important viva line:</p>
+        <blockquote>
+          <p>I used chronological holdout instead of random split because price data is time-based. Random split could leak future information into training.</p>
+        </blockquote>
+      </section>
+
+      <section>
+        <h2>8. API Endpoints</h2>
+        <ul>
+          <li><code>/</code>: Redirects to <code>index.html</code></li>
+          <li><code>/api/health</code>: Checks backend status and API version</li>
+          <li><code>/api/options</code>: Returns supported crops, regions, and currencies</li>
+          <li><code>/api/predict</code>: Returns prediction result</li>
+          <li><code>/api/export</code>: Downloads CSV or JSON export</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>9. Supported Crops and Regions</h2>
+        <p>The app supports 22 crops and crop variants, including:</p>
+        <ul>
+          <li>Wheat</li>
+          <li>Rice</li>
+          <li>Basmati rice</li>
+          <li>Non-basmati rice</li>
+          <li>Maize</li>
+          <li>Soybean</li>
+          <li>Cotton</li>
+          <li>Sugarcane</li>
+          <li>Potato</li>
+          <li>Onion</li>
+          <li>Tomato</li>
+          <li>Coffee</li>
+          <li>Cocoa</li>
+          <li>Pulses</li>
+          <li>Barley</li>
+          <li>Rapeseed</li>
+          <li>Sunflower</li>
+          <li>Banana</li>
+          <li>Apple</li>
+        </ul>
+        <p>It supports 14 regions, including India, USA, Brazil, China, EU, Ukraine, Nigeria, Australia, Canada, Argentina, Russia, Thailand, Vietnam, and Indonesia.</p>
+      </section>
+
+      <section>
+        <h2>10. Important Limitations</h2>
+        <p>Be honest about limitations. This makes your answer stronger.</p>
+        <ul>
+          <li>It is a prediction system, not a guaranteed market oracle.</li>
+          <li>Futures prices are benchmark prices, not exact local mandi prices.</li>
+          <li>Exact local accuracy needs official crop-grade, mandi, date, and unit-level data.</li>
+          <li>Some crops use fallback generated scenario data.</li>
+          <li>Static GitHub Pages mode cannot call Python APIs.</li>
+          <li>More real datasets would improve accuracy.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>11. Future Scope</h2>
+        <ul>
+          <li>Add official Agmarknet or APMC mandi datasets.</li>
+          <li>Add user login and saved searches.</li>
+          <li>Add price alerts through SMS or email.</li>
+          <li>Add map-based regional price view.</li>
+          <li>Add more real crop benchmark series.</li>
+          <li>Add uncertainty intervals for best-case and worst-case predictions.</li>
+          <li>Add mobile app version.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>12. One-Minute Viva Answer</h2>
+        <p>Good morning sir/madam. My project is CropSmart, a crop price prediction dashboard. It helps users see today's crop price and predict future prices for different crops, countries, currencies, and forecast periods.</p>
+        <p>The frontend is built using HTML, CSS, and JavaScript. The backend is built using Python. The backend collects live signals such as market benchmark price, weather, inflation, GDP, and conflict risk. For crops with public benchmark history, the system trains a ridge autoregression model using trend, seasonality, and previous price lags. For crops without public history, it uses a ridge scenario fallback model based on crop, region, climate, economy, demand, supply, and risk features.</p>
+        <p>The output includes current price, future forecast, 10-year history, 24-month chart, confidence score, model information, and CSV or JSON export. The model is evaluated using holdout MAPE and R2 score. The main limitation is that futures benchmarks are not exact local mandi prices, so official local datasets are needed for production-level accuracy.</p>
+      </section>
+
+      <section class="qa">
+        <h2>13. Common Viva Questions and Answers</h2>
+        <h3>Q1. What problem does your project solve?</h3>
+        <p>It helps users estimate current and future crop prices using market data, region profile, weather, economic indicators, and risk signals.</p>
+        <h3>Q2. Which algorithm did you use?</h3>
+        <p>I used Ridge Regression. For crops with benchmark history, I used ridge autoregression. For crops without benchmark history, I used a scenario-based ridge regression fallback.</p>
+        <h3>Q3. Why did you choose Ridge Regression?</h3>
+        <p>Because it is explainable, stable, works with numeric features, and reduces overfitting using L2 regularization.</p>
+        <h3>Q4. What is autoregression?</h3>
+        <p>Autoregression means predicting future values using previous values of the same variable. In this project, future crop price is predicted using previous monthly prices.</p>
+        <h3>Q5. What is seasonality?</h3>
+        <p>Seasonality means repeating patterns over time. Crop prices often change during sowing, harvesting, storage, and demand seasons. I represent seasonality using sine and cosine features.</p>
+        <h3>Q6. What is MAPE?</h3>
+        <p>MAPE means Mean Absolute Percentage Error. It shows average prediction error in percentage form.</p>
+        <h3>Q7. What is the backend used for?</h3>
+        <p>The backend serves the website, collects live data, builds scenarios, runs prediction models, returns JSON responses, and exports CSV or JSON files.</p>
+        <h3>Q8. What happens if live APIs fail?</h3>
+        <p>The project uses cached data when available. If exact live data is not available, it uses a clearly labeled fallback estimate.</p>
+        <h3>Q9. Is your prediction 100% accurate?</h3>
+        <p>No. Crop prices depend on many uncertain factors. The system gives planning estimates, not guaranteed prices.</p>
+        <h3>Q10. How can the project be improved?</h3>
+        <p>By adding official mandi data, more real historical series, rolling validation, uncertainty intervals, alerts, and user accounts.</p>
+      </section>
+
+      <section>
+        <h2>14. Best Demo Steps</h2>
+        <ol>
+          <li>Run:</li>
+        </ol>
+        <pre><code>python server.py</code></pre>
+        <ol start="2">
+          <li>Open:</li>
+        </ol>
+        <pre><code>http://localhost:8080/</code></pre>
+        <ol start="3">
+          <li>Select a crop such as wheat or rice.</li>
+          <li>Select India and INR.</li>
+          <li>Change forecast period to 6 or 12 months.</li>
+          <li>Show today's price, forecast chart, historical chart, confidence, and price drivers.</li>
+          <li>Download CSV or JSON export.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>15. Short Algorithm Explanation for Examiner</h2>
+        <p>The algorithm first checks whether observed benchmark history exists for the selected crop. If yes, it builds a time-series dataset using trend, seasonal sine-cosine values, and lag prices. It trains Ridge Regression and validates it using the latest months as holdout data. Then it forecasts the next 24 months recursively.</p>
+        <p>If observed history is not available, the system builds a scenario feature vector using crop properties, region profile, inflation, currency weakness, fuel cost, demand, supply shortage, climate, policy, and risk. These features are standardized and passed into a saved ridge regression model to predict log price. The log prediction is converted back into normal price using exponentiation.</p>
+        <a class="top-link" href="#top">Back to top</a>
+      </section>
+    </main>
+  </article>
+</body>
+</html>
