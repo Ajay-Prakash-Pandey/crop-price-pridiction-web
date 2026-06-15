@@ -2,31 +2,31 @@
   "india:wheat": {
     "region": "india",
     "crop": "wheat",
-    "updated_at": 1781523348,
+    "updated_at": 1781531492,
     "from_cache": false,
     "sources": [
       "Yahoo Finance futures benchmark",
-      "World Bank inflation",
       "World Bank GDP growth",
+      "World Bank inflation",
       "Open-Meteo forecast"
     ],
     "errors": [
-      "GDELT: <urlopen error _ssl.c:1063: The handshake operation timed out>"
+      "GDELT: HTTP Error 429: Too Many Requests"
     ],
     "inflation": 4.95303550973656,
     "gdp_growth": 6.49476552383821,
     "temperature_max_avg": 39.0,
-    "rainfall_sum": 3.4,
+    "rainfall_sum": 6.6,
     "climate": "drought",
     "economy": "strong",
     "war_risk": null,
-    "live_price_usd": 211.28,
+    "live_price_usd": 211.0,
     "live_price_unit": "USD per tonne",
     "live_price_source": "Wheat futures",
-    "live_price_time": 1781522724,
+    "live_price_time": 1781530888,
     "live_price_note": "Direct public futures benchmark quote. This is not a local mandi/farmgate price.",
     "live_price_symbol": "ZW=F",
-    "live_price_raw": 575.0,
+    "live_price_raw": 574.25,
     "live_price_exact": true
   },
   "usa:wheat": {
