@@ -4,7 +4,7 @@ tags: []
 
 ---
 
-# AgriPredict Global Crop Prices
+# CropSmart Global Crop Prices
 
 A browser-based crop price prediction and market intelligence dashboard. The user chooses the crop, region, currency, and forecast period. For crops with a public futures benchmark, the app downloads up to 10 years of observed monthly closes, trains a chronological ridge autoregression, validates it on a holdout period, and predicts the next 24 months.
 

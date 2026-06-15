@@ -246,7 +246,7 @@ function renderServerRequired() {
     <main class="server-required">
       <section class="panel">
         <p class="eyebrow">Python server required</p>
-        <h1>Open the working AgriPredict website</h1>
+        <h1>Open the working CropSmart website</h1>
         <p>Future and historical crop prices come from the Python API and cannot load when this HTML file is opened directly.</p>
         <code>python server.py</code>
         <p>Then open <strong>http://localhost:8080/</strong>.</p>
@@ -260,7 +260,7 @@ function renderWrongServer(error) {
     <main class="server-required">
       <section class="panel">
         <p class="eyebrow">Wrong or outdated server</p>
-        <h1>Restart AgriPredict</h1>
+        <h1>Restart CropSmart</h1>
         <p>${error.message}. A previous Python server is probably still using this port.</p>
         <code>python server.py 8765</code>
         <p>Then open <strong>http://localhost:8765/</strong>.</p>
