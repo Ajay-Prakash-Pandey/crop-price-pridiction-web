@@ -40,7 +40,11 @@ Then open `http://localhost:8765/`. The page checks API version 2 before loading
 
 ## Free Hosting
 
-Recommended free host: Render Web Service.
+No-card free host: GitHub Pages. See `STATIC_FREE_HOSTING.md`.
+
+GitHub Pages runs the static browser demo mode. It does not run Python, so live market APIs are unavailable, but forecasts, charts, and exports still work from saved assumptions.
+
+Python backend host: Render Web Service.
 
 This project includes `render.yaml`, so Render can detect the Python service automatically.
 

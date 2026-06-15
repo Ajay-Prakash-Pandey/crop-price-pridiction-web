@@ -61,6 +61,8 @@ let options = {
   regions: fallbackRegions,
   currencies: fallbackCurrencies
 };
+let apiAvailable = false;
+let lastPrediction = null;
 
 const form = document.querySelector("#prediction-form");
 const cropInput = document.querySelector("#crop");
@@ -87,17 +89,14 @@ const exportCsvButton = document.querySelector("#export-csv");
 const exportJsonButton = document.querySelector("#export-json");
 
 async function init() {
-  if (!isAppServer()) {
-    renderServerRequired();
-    return;
-  }
   try {
     await verifyApiServer();
+    apiAvailable = true;
+    await loadOptions();
   } catch (error) {
-    renderWrongServer(error);
-    return;
+    apiAvailable = false;
+    options = { crops: fallbackCrops, regions: fallbackRegions, currencies: fallbackCurrencies };
   }
-  await loadOptions();
   populateSelects();
   renderTicker();
   bindEvents();
@@ -180,12 +179,17 @@ async function predict(event) {
   });
 
   try {
-    const response = await fetch(`/api/predict?${params.toString()}`);
-    if (!response.ok) {
-      const failure = await response.json().catch(() => ({}));
-      throw new Error(failure.error || `Prediction API returned ${response.status}`);
+    if (apiAvailable) {
+      const response = await fetch(`/api/predict?${params.toString()}`);
+      if (!response.ok) {
+        const failure = await response.json().catch(() => ({}));
+        throw new Error(failure.error || `Prediction API returned ${response.status}`);
+      }
+      lastPrediction = await response.json();
+    } else {
+      lastPrediction = buildStaticPrediction(cropInput.value, regionInput.value, currencyInput.value, Number(periodInput.value));
     }
-    renderPrediction(await response.json());
+    renderPrediction(lastPrediction);
   } catch (error) {
     renderApiError(error);
   }
@@ -418,6 +422,198 @@ function buildNotes(result) {
   return `${live} ${history} Future values are predictions for planning, not guaranteed prices.`;
 }
 
+const staticRegionProfiles = {
+  india: { name: "India", multiplier: 0.82, fx: { USD: 1, INR: 83, EUR: 0.92, GBP: 0.78 }, profile: { climate: "normal", economy: "stable", policy: "support", inflation: 0.06, currency: 0.10, fuel: 0.12, war: 0.08, shortage: 0.16 } },
+  usa: { name: "United States", multiplier: 1.08, fx: { USD: 1, INR: 83, EUR: 0.92, GBP: 0.78 }, profile: { climate: "normal", economy: "strong", policy: "neutral", inflation: 0.03, currency: 0.03, fuel: 0.06, war: 0.05, shortage: 0.09 } },
+  brazil: { name: "Brazil", multiplier: 0.94, fx: { USD: 1, INR: 83, EUR: 0.92, GBP: 0.78 }, profile: { climate: "drought", economy: "stable", policy: "neutral", inflation: 0.05, currency: 0.12, fuel: 0.10, war: 0.06, shortage: 0.13 } },
+  china: { name: "China", multiplier: 1.02, fx: { USD: 1, INR: 83, EUR: 0.92, GBP: 0.78 }, profile: { climate: "normal", economy: "stable", policy: "neutral", inflation: 0.02, currency: 0.04, fuel: 0.07, war: 0.09, shortage: 0.11 } },
+  eu: { name: "European Union", multiplier: 1.16, fx: { USD: 1, INR: 83, EUR: 0.92, GBP: 0.78 }, profile: { climate: "cold", economy: "stable", policy: "support", inflation: 0.03, currency: 0.04, fuel: 0.09, war: 0.11, shortage: 0.10 } },
+  ukraine: { name: "Ukraine", multiplier: 0.78, fx: { USD: 1, INR: 83, EUR: 0.92, GBP: 0.78 }, profile: { climate: "normal", economy: "weak", policy: "neutral", inflation: 0.09, currency: 0.20, fuel: 0.18, war: 0.58, shortage: 0.27 } },
+  nigeria: { name: "Nigeria", multiplier: 0.74, fx: { USD: 1, INR: 83, EUR: 0.92, GBP: 0.78 }, profile: { climate: "drought", economy: "weak", policy: "importOpen", inflation: 0.16, currency: 0.28, fuel: 0.22, war: 0.23, shortage: 0.30 } },
+  australia: { name: "Australia", multiplier: 1.12, fx: { USD: 1, INR: 83, EUR: 0.92, GBP: 0.78 }, profile: { climate: "excellent", economy: "strong", policy: "neutral", inflation: 0.03, currency: 0.04, fuel: 0.07, war: 0.04, shortage: 0.08 } }
+};
+
+const effectValues = {
+  climate: { normal: 0, drought: 0.18, flood: 0.15, cold: 0.08, excellent: -0.08 },
+  cropCondition: { excellent: -0.09, good: -0.03, average: 0.03, poor: 0.14, damaged: 0.27 },
+  economy: { strong: 0.06, stable: 0, weak: -0.04, recession: -0.09 },
+  policy: { support: 0.08, neutral: 0, exportBan: -0.10, importOpen: -0.07, taxIncrease: 0.07 }
+};
+
+function buildStaticPrediction(cropKey, regionKey, currency, period) {
+  const crop = options.crops.find(item => item.key === cropKey) || fallbackCrops[0];
+  const region = staticRegionProfiles[regionKey] || staticRegionProfiles.india;
+  const scenario = buildStaticScenario(crop, region, period);
+  const modelBaseUsd = crop.base * region.multiplier;
+  const todayUsd = staticPriceUsd(crop, region, scenario, 0);
+  const futureUsd = staticPriceUsd(crop, region, scenario, period);
+  const price = futureUsd * region.fx[currency];
+  const factors = [
+    { name: "Climate", value: effectValues.climate[scenario.climate] },
+    { name: "Crop health", value: effectValues.cropCondition[scenario.cropCondition] },
+    { name: "Economy", value: effectValues.economy[scenario.economy] },
+    { name: "Policy", value: effectValues.policy[scenario.policy] },
+    { name: "Inflation", value: scenario.inflation * 0.50 },
+    { name: "Currency weakness", value: scenario.currencyWeakness * 0.35 },
+    { name: "Demand growth", value: scenario.demandGrowth * 0.45 },
+    { name: "Fuel and transport costs", value: scenario.fuelCost * 0.28 },
+    { name: "War or conflict risk", value: scenario.warRisk * 0.22 },
+    { name: "Supply shortage", value: scenario.supplyShortage * 0.62 },
+    { name: `${period}-month forecast`, value: period * crop.volatility * 0.015 }
+  ];
+
+  return {
+    price: roundMoney(price),
+    futurePrice: { price: roundMoney(price), currency, periodMonths: period, unit: crop.unit, type: "future_forecast" },
+    todayPrice: buildStaticTodayPrice(scenario, region, currency, crop, todayUsd, modelBaseUsd),
+    currency,
+    unit: crop.unit,
+    confidence: staticConfidence(crop.volatility, scenario.warRisk, scenario.supplyShortage, effectValues.climate[scenario.climate], period),
+    crop: crop.name,
+    region: region.name,
+    scenario,
+    factors,
+    totalEffect: Number(factors.reduce((sum, item) => sum + item.value, 0).toFixed(4)),
+    modelInfo: { type: "Static browser demo model", trainingData: "Saved crop and region assumptions", metrics: null, observations: 0 },
+    livePrice: buildStaticTodayPrice(scenario, region, currency, crop, todayUsd, modelBaseUsd),
+    forecast12Months: buildStaticForecast(crop, region, currency, scenario, 12),
+    forecast24Months: buildStaticForecast(crop, region, currency, scenario, 24),
+    historical10Years: buildStaticHistory(crop, region, currency),
+    historyType: "model_generated_fallback",
+    historySource: "Static browser model",
+    forecastNote: "Static hosted demo. Live market APIs require the Python server.",
+    sources: ["Static browser model", "Saved crop and region assumptions"],
+    errors: []
+  };
+}
+
+function buildStaticScenario(crop, region, period) {
+  const profile = region.profile;
+  const cropCondition = crop.volatility > 0.30 ? "average" : crop.climateRisk > 0.14 ? "good" : "excellent";
+  const scenario = {
+    climate: profile.climate,
+    cropCondition,
+    economy: profile.economy,
+    policy: profile.policy,
+    inflation: profile.inflation,
+    currencyWeakness: profile.currency,
+    demandGrowth: Math.max(-0.20, crop.demand + (period >= 6 ? 0.02 : 0)),
+    fuelCost: profile.fuel,
+    warRisk: profile.war,
+    supplyShortage: Math.min(0.70, profile.shortage + crop.climateRisk + crop.volatility * 0.10),
+    liveData: { live_price_usd: null, sources: ["Static browser model"], errors: [] }
+  };
+  scenario.effects = {
+    climate: effectValues.climate[scenario.climate],
+    cropCondition: effectValues.cropCondition[scenario.cropCondition],
+    economy: effectValues.economy[scenario.economy],
+    policy: effectValues.policy[scenario.policy]
+  };
+  return scenario;
+}
+
+function staticPriceUsd(crop, region, scenario, month) {
+  const seasonal = Math.sin((month % 12) * 2 * Math.PI / 12) * crop.volatility * 0.09;
+  const trend = month * (0.004 + crop.demand * 0.012);
+  const risk =
+    scenario.effects.climate +
+    scenario.effects.cropCondition +
+    scenario.effects.economy +
+    scenario.effects.policy +
+    scenario.inflation * 0.50 +
+    scenario.currencyWeakness * 0.35 +
+    scenario.demandGrowth * 0.45 +
+    scenario.fuelCost * 0.28 +
+    scenario.warRisk * 0.22 +
+    scenario.supplyShortage * 0.62;
+  return Math.max(1, crop.base * region.multiplier * (1 + risk + trend + seasonal));
+}
+
+function buildStaticTodayPrice(scenario, region, currency, crop, todayUsd, modelBaseUsd) {
+  return {
+    available: true,
+    price: roundMoney(todayUsd * region.fx[currency]),
+    currency,
+    unit: crop.unit,
+    source: "Static hosted demo",
+    symbol: null,
+    quoteTime: new Date().toISOString(),
+    note: "This free static version estimates today's price from saved crop and region assumptions. Live quotes require the Python server.",
+    exactTodayQuote: false,
+    type: "live_signal_estimate",
+    label: "Estimated spot price",
+    baseModelPrice: roundMoney(modelBaseUsd * region.fx[currency])
+  };
+}
+
+function buildStaticForecast(crop, region, currency, scenario, months) {
+  return Array.from({ length: months }, (_, index) => {
+    const month = index + 1;
+    return {
+      month,
+      date: addMonths(new Date(), month),
+      price: roundMoney(staticPriceUsd(crop, region, scenario, month) * region.fx[currency]),
+      currency
+    };
+  });
+}
+
+function buildStaticHistory(crop, region, currency) {
+  const today = new Date();
+  return Array.from({ length: 120 }, (_, index) => {
+    const date = new Date(today.getFullYear() - 10, today.getMonth() + index, 1);
+    const age = index - 119;
+    const month = date.getMonth() + 1;
+    const trend = age / 120;
+    const cycle = Math.sin(index * 0.45 + crop.base) * crop.volatility * 0.18;
+    const priceUsd = crop.base * region.multiplier * (1 + trend * 0.22 + cycle);
+    return {
+      date: `${date.getFullYear()}-${String(month).padStart(2, "0")}`,
+      year: date.getFullYear(),
+      month,
+      price: roundMoney(Math.max(1, priceUsd * region.fx[currency])),
+      currency,
+      observed: false
+    };
+  });
+}
+
+function staticConfidence(volatility, warRisk, shortage, climateEffect, period) {
+  const riskPenalty = volatility * 100 + warRisk * 18 + shortage * 14 + Math.abs(climateEffect * 30) + period * 1.2;
+  return Math.max(42, Math.min(91, Math.round(96 - riskPenalty)));
+}
+
+function addMonths(start, offset) {
+  const date = new Date(start.getFullYear(), start.getMonth() + offset, 1);
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+}
+
+function downloadStaticExport(prediction, format) {
+  const filename = `${cropInput.value}-${regionInput.value}-prices.${format}`;
+  const body = format === "json" ? JSON.stringify(prediction, null, 2) : toCsv(prediction);
+  const type = format === "json" ? "application/json" : "text/csv";
+  const url = URL.createObjectURL(new Blob([body], { type }));
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+function toCsv(prediction) {
+  const rows = [["type", "date", "price", "currency"]];
+  prediction.historical10Years.forEach(item => rows.push(["history", item.date, item.price, item.currency]));
+  prediction.forecast24Months.forEach(item => rows.push(["forecast", item.date, item.price, item.currency]));
+  rows.push(["selected_future", `${prediction.futurePrice.periodMonths} months`, prediction.futurePrice.price, prediction.currency]);
+  return rows.map(row => row.map(value => `"${String(value).replaceAll('"', '""')}"`).join(",")).join("\n");
+}
+
+function roundMoney(value) {
+  return Math.round(Number(value) * 100) / 100;
+}
+
 async function exportData(format) {
   const params = new URLSearchParams({
     crop: cropInput.value,
@@ -431,10 +627,13 @@ async function exportData(format) {
   button.disabled = true;
   button.textContent = "Preparing...";
   try {
-    const response = await fetch(`/api/export?${params.toString()}`);
-    if (!response.ok) {
-      throw new Error(`Export failed with HTTP ${response.status}`);
+    if (!apiAvailable) {
+      const prediction = lastPrediction || buildStaticPrediction(cropInput.value, regionInput.value, currencyInput.value, Number(periodInput.value));
+      downloadStaticExport(prediction, format);
+      return;
     }
+    const response = await fetch(`/api/export?${params.toString()}`);
+    if (!response.ok) throw new Error(`Export failed with HTTP ${response.status}`);
     const disposition = response.headers.get("Content-Disposition") || "";
     const filenameMatch = disposition.match(/filename="([^"]+)"/);
     const filename = filenameMatch
