@@ -6,7 +6,7 @@ tags: []
 
 # AgriPredict Global Crop Prices
 
-A browser-based crop price prediction and market intelligence dashboard inspired by mandi-rate sites such as AgriRate. The user chooses the crop, region, currency, and forecast period. The app shows today's price plus the future predicted price, fetches public market signals where available, explains the price drivers, and exports a 12-month forecast CSV.
+A browser-based crop price prediction and market intelligence dashboard. The user chooses the crop, region, currency, and forecast period. For crops with a public futures benchmark, the app downloads up to 10 years of observed monthly closes, trains a chronological ridge autoregression, validates it on a holdout period, and predicts the next 24 months.
 
 ## Run
 
@@ -19,7 +19,7 @@ python server.py
 Then open:
 
 ```text
-http://localhost:8080/index.html
+http://localhost:8080/
 ```
 
 You can also choose a port:
@@ -28,19 +28,15 @@ You can also choose a port:
 python server.py 8082
 ```
 
-For the simple offline UI only, you can also run:
+Do not open `index.html` directly and do not use `python -m http.server`. Historical prices, future prices, live data, and exports require `server.py`.
+
+If port `8080` is occupied by an older server, run:
 
 ```powershell
-python -m http.server 8000
+python server.py 8765
 ```
 
-Then open:
-
-```text
-http://localhost:8000/index.html
-```
-
-No installation is required for the user interface.
+Then open `http://localhost:8765/`. The page checks API version 2 before loading prices or exports.
 
 ## Files
 
@@ -50,11 +46,14 @@ No installation is required for the user interface.
 - `server.py` runs the localhost app and prediction API.
 - `data_collector.py` collects live public signals from web APIs and caches them in `data/live_market_data.json`.
 - The app shows today's price and a future predicted price. Today's price is a direct public quote when available; otherwise it is a live-signal estimate from crop, region, weather, inflation, GDP, and risk data.
-- The app creates a 12-month future price forecast and CSV export.
+- The app creates a 24-month future price forecast, a 10-year historical price view, and CSV/JSON export.
+- Both export formats include the current price, previous monthly prices, future monthly prices, source information, and model metadata.
+- Supported benchmark crops use observed monthly market history and show holdout MAPE in the UI.
+- Crops without a public historical series use an explicitly labeled scenario-model fallback.
 - The dashboard includes crop quick-pick cards, global region options, trend bars, market assumptions, price drivers, and source quality notes.
 - Rice includes separate options for basmati, non-basmati, paddy, parboiled, and broken rice. These use different model base prices; live benchmark quotes use rough rice futures unless an exact local source is added.
 - `model.py` contains the same model idea in Python for future backend or training work.
 
 ## Important Note
 
-This is a live-signal scenario model, not a perfect market oracle. Exact prices require verified local market, mandi, exchange, wholesale, or farmgate records for the exact crop grade, market, date, and unit. Some crops and varieties, such as onion, tomato, potato, pulses, and specific rice grades, may not have a public live futures benchmark, so the app will show a model forecast or benchmark-based estimate. For production accuracy, add verified historical local prices and train/validate the model on that dataset.
+This is not a market oracle. Futures benchmarks are global reference prices, not exact local mandi or farmgate prices. Exact local prices require an official data feed for the crop grade, market, date, and unit. The UI never labels generated fallback history as observed history.

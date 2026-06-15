@@ -1,0 +1,267 @@
+{
+  "india:wheat": {
+    "region": "india",
+    "crop": "wheat",
+    "updated_at": 1781523348,
+    "from_cache": false,
+    "sources": [
+      "Yahoo Finance futures benchmark",
+      "World Bank inflation",
+      "World Bank GDP growth",
+      "Open-Meteo forecast"
+    ],
+    "errors": [
+      "GDELT: <urlopen error _ssl.c:1063: The handshake operation timed out>"
+    ],
+    "inflation": 4.95303550973656,
+    "gdp_growth": 6.49476552383821,
+    "temperature_max_avg": 39.0,
+    "rainfall_sum": 3.4,
+    "climate": "drought",
+    "economy": "strong",
+    "war_risk": null,
+    "live_price_usd": 211.28,
+    "live_price_unit": "USD per tonne",
+    "live_price_source": "Wheat futures",
+    "live_price_time": 1781522724,
+    "live_price_note": "Direct public futures benchmark quote. This is not a local mandi/farmgate price.",
+    "live_price_symbol": "ZW=F",
+    "live_price_raw": 575.0,
+    "live_price_exact": true
+  },
+  "usa:wheat": {
+    "region": "usa",
+    "crop": "wheat",
+    "updated_at": 1781515199,
+    "from_cache": false,
+    "sources": [],
+    "errors": [
+      "World Bank inflation: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "World Bank GDP: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "Open-Meteo: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "GDELT: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>"
+    ],
+    "inflation": null,
+    "gdp_growth": null,
+    "temperature_max_avg": null,
+    "rainfall_sum": null,
+    "climate": null,
+    "economy": null,
+    "war_risk": null
+  },
+  "china:wheat": {
+    "region": "china",
+    "crop": "wheat",
+    "updated_at": 1781335625,
+    "from_cache": false,
+    "sources": [],
+    "errors": [
+      "World Bank inflation: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "World Bank GDP: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "Open-Meteo: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "GDELT: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>"
+    ],
+    "inflation": null,
+    "gdp_growth": null,
+    "temperature_max_avg": null,
+    "rainfall_sum": null,
+    "climate": null,
+    "economy": null,
+    "war_risk": null
+  },
+  "brazil:wheat": {
+    "region": "brazil",
+    "crop": "wheat",
+    "updated_at": 1781335633,
+    "from_cache": false,
+    "sources": [],
+    "errors": [
+      "World Bank inflation: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "World Bank GDP: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "Open-Meteo: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "GDELT: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>"
+    ],
+    "inflation": null,
+    "gdp_growth": null,
+    "temperature_max_avg": null,
+    "rainfall_sum": null,
+    "climate": null,
+    "economy": null,
+    "war_risk": null
+  },
+  "india:rice": {
+    "region": "india",
+    "crop": "rice",
+    "updated_at": 1781515391,
+    "from_cache": false,
+    "sources": [],
+    "errors": [
+      "World Bank inflation: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "World Bank GDP: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "Open-Meteo: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "GDELT: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>"
+    ],
+    "inflation": null,
+    "gdp_growth": null,
+    "temperature_max_avg": null,
+    "rainfall_sum": null,
+    "climate": null,
+    "economy": null,
+    "war_risk": null
+  },
+  "india:soybean": {
+    "region": "india",
+    "crop": "soybean",
+    "updated_at": 1781515589,
+    "from_cache": false,
+    "sources": [],
+    "errors": [
+      "World Bank inflation: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "World Bank GDP: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "Open-Meteo: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "GDELT: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>"
+    ],
+    "inflation": null,
+    "gdp_growth": null,
+    "temperature_max_avg": null,
+    "rainfall_sum": null,
+    "climate": null,
+    "economy": null,
+    "war_risk": null
+  },
+  "india:sugarcane": {
+    "region": "india",
+    "crop": "sugarcane",
+    "updated_at": 1781515750,
+    "from_cache": false,
+    "sources": [],
+    "errors": [
+      "World Bank inflation: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "World Bank GDP: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "Open-Meteo: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "GDELT: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>"
+    ],
+    "inflation": null,
+    "gdp_growth": null,
+    "temperature_max_avg": null,
+    "rainfall_sum": null,
+    "climate": null,
+    "economy": null,
+    "war_risk": null
+  },
+  "india:rice_basmati": {
+    "region": "india",
+    "crop": "rice_basmati",
+    "updated_at": 1781524087,
+    "from_cache": false,
+    "sources": [
+      "World Bank GDP growth",
+      "World Bank inflation",
+      "Yahoo Finance futures benchmark",
+      "Open-Meteo forecast"
+    ],
+    "errors": [
+      "GDELT: <urlopen error _ssl.c:1063: The handshake operation timed out>"
+    ],
+    "inflation": 4.95303550973656,
+    "gdp_growth": 6.49476552383821,
+    "temperature_max_avg": 39.0,
+    "rainfall_sum": 3.4,
+    "climate": "drought",
+    "economy": "strong",
+    "war_risk": null,
+    "live_price_usd": 599.14,
+    "live_price_unit": "USD per tonne",
+    "live_price_source": "Rough rice benchmark adjusted for basmati",
+    "live_price_time": 1781488790,
+    "live_price_note": "Basmati has no direct public futures quote here; this is a benchmark estimate adjusted for the variety premium.",
+    "live_price_symbol": "ZR=F",
+    "live_price_raw": 12.025,
+    "live_price_exact": false
+  },
+  "india:maize": {
+    "region": "india",
+    "crop": "maize",
+    "updated_at": 1781516543,
+    "from_cache": false,
+    "sources": [],
+    "errors": [
+      "World Bank inflation: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "World Bank GDP: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "Open-Meteo: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "GDELT: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>"
+    ],
+    "inflation": null,
+    "gdp_growth": null,
+    "temperature_max_avg": null,
+    "rainfall_sum": null,
+    "climate": null,
+    "economy": null,
+    "war_risk": null
+  },
+  "india:cotton": {
+    "region": "india",
+    "crop": "cotton",
+    "updated_at": 1781516546,
+    "from_cache": false,
+    "sources": [],
+    "errors": [
+      "World Bank inflation: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "World Bank GDP: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "Open-Meteo: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "GDELT: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>"
+    ],
+    "inflation": null,
+    "gdp_growth": null,
+    "temperature_max_avg": null,
+    "rainfall_sum": null,
+    "climate": null,
+    "economy": null,
+    "war_risk": null
+  },
+  "india:onion": {
+    "region": "india",
+    "crop": "onion",
+    "updated_at": 1781523536,
+    "from_cache": false,
+    "sources": [],
+    "errors": [
+      "Open-Meteo: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "World Bank inflation: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "World Bank GDP: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "GDELT: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>"
+    ],
+    "inflation": null,
+    "gdp_growth": null,
+    "temperature_max_avg": null,
+    "rainfall_sum": null,
+    "climate": null,
+    "economy": null,
+    "war_risk": null,
+    "live_price_usd": null,
+    "live_price_unit": null,
+    "live_price_source": null,
+    "live_price_time": null,
+    "live_price_note": null
+  },
+  "india:cocoa": {
+    "region": "india",
+    "crop": "cocoa",
+    "updated_at": 1781523049,
+    "from_cache": false,
+    "sources": [],
+    "errors": [
+      "World Bank inflation: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "World Bank GDP: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "Open-Meteo: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+      "GDELT: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>"
+    ],
+    "inflation": null,
+    "gdp_growth": null,
+    "temperature_max_avg": null,
+    "rainfall_sum": null,
+    "climate": null,
+    "economy": null,
+    "war_risk": null
+  }
+}

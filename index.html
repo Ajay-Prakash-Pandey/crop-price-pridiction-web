@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Global Crop Prices</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="hero">
+        <nav class="nav">
+          <strong>AgriPredict</strong>
+          <div>
+            <a href="#markets">Markets</a>
+            <a href="#forecast-section">Forecast</a>
+            <a href="#sources">Sources</a>
+          </div>
+        </nav>
+
+        <section class="hero-grid">
+          <div>
+            <p class="eyebrow">Global crop market intelligence</p>
+            <h1>Crop price forecasts with live benchmarks and market signals.</h1>
+            <p class="hero-copy">
+              Compare crops across major growing regions, check benchmark quotes where public markets exist,
+              and export 10 years of history with a 2-year planning forecast.
+            </p>
+          </div>
+
+          <form class="search-panel" id="prediction-form">
+            <label>
+              Crop
+              <select id="crop" required></select>
+            </label>
+            <label>
+              Country / region
+              <select id="region" required></select>
+            </label>
+            <div class="form-row">
+              <label>
+                Currency
+                <select id="currency"></select>
+              </label>
+              <label>
+                Forecast
+                <select id="period">
+                  <option value="1">1 month</option>
+                  <option value="3" selected>3 months</option>
+                  <option value="6">6 months</option>
+                  <option value="12">12 months</option>
+                  <option value="24">24 months</option>
+                </select>
+              </label>
+            </div>
+            <div class="actions">
+              <button type="submit">Run forecast</button>
+              <button type="button" class="ghost" id="export-csv">Export CSV</button>
+              <button type="button" class="ghost" id="export-json">Export JSON</button>
+            </div>
+          </form>
+        </section>
+      </header>
+
+      <section class="ticker" id="markets"></section>
+
+      <section class="dashboard" id="forecast-section">
+        <article class="price-panel">
+          <div class="section-title">
+            <span>Selected market</span>
+            <h2 id="summary">Choose a crop and region</h2>
+          </div>
+          <div class="price-grid">
+            <div class="price-card primary">
+              <span>Future predicted price</span>
+              <strong id="price">--</strong>
+              <small id="unit">per tonne</small>
+            </div>
+            <div class="price-card">
+              <span>Today live price</span>
+              <strong id="live-price">Checking...</strong>
+              <small id="live-source">Direct quote or live-signal estimate</small>
+            </div>
+            <div class="price-card">
+              <span>Confidence</span>
+              <strong id="confidenceText">--</strong>
+              <small id="confidence-note">Model risk score</small>
+            </div>
+          </div>
+          <div class="meter"><span id="confidenceBar"></span></div>
+          <p class="forecast-note" id="notes">Run a forecast to see the market explanation.</p>
+        </article>
+
+        <article class="panel chart-panel">
+          <div class="section-title">
+            <span>24 month outlook</span>
+            <h2>Future prediction</h2>
+          </div>
+          <div class="chart" id="forecast-chart"></div>
+          <div class="forecast-list" id="forecast-list"></div>
+        </article>
+      </section>
+
+      <section class="history-section">
+        <article class="panel chart-panel">
+          <div class="section-title">
+            <span>Last 10 years</span>
+            <h2>Historical crop price</h2>
+          </div>
+          <div class="history-chart" id="history-chart"></div>
+          <div class="history-summary" id="history-summary"></div>
+        </article>
+      </section>
+
+      <section class="insight-grid">
+        <article class="panel">
+          <div class="section-title">
+            <span>Market scenario</span>
+            <h2>Assumptions</h2>
+          </div>
+          <div class="assumption-grid" id="assumptions"></div>
+        </article>
+
+        <article class="panel">
+          <div class="section-title">
+            <span>Price movement</span>
+            <h2>Main drivers</h2>
+          </div>
+          <ul id="drivers"></ul>
+        </article>
+
+        <article class="panel" id="sources">
+          <div class="section-title">
+            <span>Data quality</span>
+            <h2>Sources</h2>
+          </div>
+          <div class="source-list" id="source-list"></div>
+          <p class="small-print">
+            Forecasts are estimates. Exact global farmgate prices require verified local market or exchange data for each crop,
+            grade, location, date, and unit.
+          </p>
+        </article>
+      </section>
+    </main>
+
+    <script src="app.js?v=2"></script>
+  </body>
+</html>
